@@ -1,0 +1,14 @@
+---
+// Props
+const { href = "#", label = "Click", variant = "blue" } = Astro.props;
+---
+
+<a 
+  href={href} 
+  class={`px-5 py-2 font-semibold rounded-lg transition text-sm sm:text-base bg-white
+    ${variant === 'blue' ? 'text-blue-600 hover:bg-blue-100' : ''}
+    ${variant === 'violet' ? 'text-violet-600 hover:bg-violet-100' : ''}
+  `}
+>
+  {label}
+</a>

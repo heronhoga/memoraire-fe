@@ -1,0 +1,24 @@
+---
+import MemoraireButton from '../components/Button.astro';
+---
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-violet-600 text-slate-600 px-4">
+  <main class="w-full max-w-md sm:max-w-lg md:max-w-xl bg-white bg-opacity-10 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-10 text-center">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-300 to-violet-300 text-transparent bg-clip-text border-2inline-block px-6 py-2">
+      Memoraire
+    </h1>
+
+    <div id="box-text" class="space-y-2">
+      <h2 class="text-xl sm:text-2xl font-semibold">Write your day!</h2>
+      <h3 class="text-sm sm:text-base">
+        Write your whole activity and most memorable memory in your day in just 1 sentence.
+      </h3>
+	  <p>inspired by <strong>Raditya Dika</strong></p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+        <MemoraireButton href="/login" label="Login" variant="blue" />
+        <MemoraireButton href="/register" label="Register" variant="violet" />
+      </div>
+    </div>
+  </main>
+</div>
