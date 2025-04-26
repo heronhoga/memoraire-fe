@@ -105,7 +105,7 @@
 </div>
 
 <script>
-  import { showNotification } from '../components/utils/notificationService';
+  import { showNotificationRegister } from '../components/utils/notificationService';
   
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form') as HTMLFormElement;
@@ -171,7 +171,7 @@
         });
 
         if (result.ok) {
-          showNotification({
+          showNotificationRegister({
             title: 'Registration Successful!',
             message: 'Your account has been created. You will be redirected to login in 5 seconds.',
             buttonText: 'Login Now',

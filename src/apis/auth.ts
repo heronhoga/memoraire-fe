@@ -14,6 +14,16 @@ interface RegisterResponse {
   message: string;
 }
 
+interface LoginData {
+  username: string;
+  password: string;
+}
+
+interface LoginResponse {
+  message: string;
+  token: string;
+}
+
 export async function registerUser(data: RegisterData): Promise<RegisterResponse> {
   try {
     const response = await axios.post(`${BASE_URL}/register`, data, {
@@ -22,6 +32,23 @@ export async function registerUser(data: RegisterData): Promise<RegisterResponse
       },
     });
     return response.data;
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ message: string }>;
+    console.log(axiosError);
+    throw axiosError.response?.data || { message: "Something went wrong" };
+  }
+}
+
+export async function loginUser(data: LoginData):
+Promise<LoginResponse> {
+  try {
+    const response = await axios.post(`${BASE_URL}/login`, data, {
+      headers: {
+        hgtoken: APP_KEY,
+      },
+    })
+
+    return response.data
   } catch (error: unknown) {
     const axiosError = error as AxiosError<{ message: string }>;
     console.log(axiosError);
