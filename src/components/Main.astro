@@ -1,1 +1,151 @@
-<div>main home</div>
+---
+const memories = [
+  {
+    id: 1,
+    date: '2025-04-26',
+    note: 'I went for a long hike today and discovered a beautiful waterfall. The weather was perfect and I took some amazing photos.',
+    day: 'Saturday'
+  },
+  {
+    id: 2,
+    date: '2025-04-25',
+    note: 'Finished reading that book I\'ve been working on for weeks. The ending was unexpected but satisfying.',
+    day: 'Friday'
+  },
+  {
+    id: 3,
+    date: '2025-04-24',
+    note: 'Had coffee with an old friend. We caught up on everything that\'s happened in the past year. Time flies!',
+    day: 'Thursday'
+  },
+  {
+    id: 4,
+    date: '2025-04-23',
+    note: 'Started learning a new programming language today. It\'s challenging but exciting to expand my skills.',
+    day: 'Wednesday'
+  },
+  {
+    id: 5,
+    date: '2025-04-22',
+    note: 'Cooked a new recipe for dinner. It turned out better than expected! Will definitely make it again.',
+    day: 'Tuesday'
+  },
+  {
+    id: 6,
+    date: '2025-04-21',
+    note: 'Attended a virtual conference today. Learned a lot about new technologies and made some good connections.',
+    day: 'Monday'
+  },
+  {
+    id: 7,
+    date: '2025-04-20',
+    note: 'I do nothing today. Just relaxed at home, watched movies, and recharged my batteries.',
+    day: 'Sunday'
+  },
+  {
+    id: 8,
+    date: '2025-04-19',
+    note: 'Went to a concert with friends. The band was amazing live, even better than their recordings.',
+    day: 'Saturday'
+  },
+  {
+    id: 9,
+    date: '2025-04-18',
+    note: 'Started a new project at work. It\'s challenging but I\'m excited about the opportunity to learn new skills.',
+    day: 'Friday'
+  }
+];
+
+const currentPage = 1;
+const totalPages = 3;
+---
+
+<div class="container mx-auto px-4 py-8">
+    <header class="sticky top-0 z-10 bg-gradient-to-r from-blue-600 to-violet-700 backdrop-blur-lg bg-opacity-80 rounded-xl shadow-lg mb-8 py-4 px-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-extrabold text-white">Memoraire</h1>
+          <p class="text-blue-100">Your personal memory journal</p>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <button id="profile-btn" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-slate-600 px-4 py-2 rounded-lg flex items-center transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            Profile
+          </button>
+          
+          <button id="logout-btn" class="bg-white hover:bg-gray-100 text-violet-700 px-4 py-2 rounded-lg flex items-center transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H3zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Memory Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      {memories.map((memory) => (
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1">
+          <div class="p-6">
+            <div class="text-sm text-gray-500 mb-2">{memory.date}</div>
+            <div class="text-gray-800 font-medium line-clamp-3">{memory.note}</div>
+          </div>
+          <div class="bg-gradient-to-r from-blue-500 to-violet-600 text-white p-3 flex justify-between items-center">
+            <span class="text-sm font-medium">{memory.day}</span>
+            <button class="hover:text-blue-200 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="flex justify-center items-center space-x-4 mt-12">
+      <button id="prev-page" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-5 py-2 rounded-lg flex items-center transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+        Previous
+      </button>
+      
+      <div class="text-white font-medium">Page {currentPage} of {totalPages}</div>
+      
+      <button id="next-page" class="bg-white hover:bg-gray-100 text-violet-700 px-5 py-2 rounded-lg flex items-center transition-all">
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoutBtn = document.getElementById('logout-btn');
+      const profileBtn = document.getElementById('profile-btn');
+      const prevPageBtn = document.getElementById('prev-page');
+      const nextPageBtn = document.getElementById('next-page');
+      
+      logoutBtn?.addEventListener('click', function() {
+        console.log('Logout clicked');
+      });
+      
+      profileBtn?.addEventListener('click', function() {
+        console.log('Profile clicked');
+      });
+      
+      prevPageBtn?.addEventListener('click', function() {
+        console.log('Previous page clicked');
+      });
+      
+      nextPageBtn?.addEventListener('click', function() {
+        console.log('Next page clicked');
+      });
+    });
+  </script>
