@@ -1,118 +1,129 @@
+---
+---
+
 <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-violet-600 p-6">
-    <div class="w-full max-w-md">
-      <form
-        method="POST"
-        class="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl"
-      >
-        <div class="p-8 space-y-6">
-          <div class="text-center mb-8">
-            <h1 class="text-4xl font-extrabold text-transparent bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text inline-block">
-              Memoraire
-            </h1>
-            <p class="text-gray-500 mt-2">Create your account</p>
+  <div class="w-full max-w-md">
+    <form
+      method="POST"
+      class="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl"
+    >
+      <div class="p-8 space-y-6">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-extrabold text-transparent bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text inline-block">
+            Memoraire
+          </h1>
+          <p class="text-gray-500 mt-2">Create your account</p>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="group">
+            <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Username</label>
+            <input 
+              required 
+              name="username" 
+              type="text" 
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+            />
           </div>
           
-          <div class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="group">
-              <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Username</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">First Name</label>
               <input 
                 required 
-                name="username" 
+                name="first_name" 
                 type="text" 
                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
               />
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="group">
-                <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">First Name</label>
-                <input 
-                  required 
-                  name="first_name" 
-                  type="text" 
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
-                />
-              </div>
-              
-              <div class="group">
-                <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Last Name</label>
-                <input 
-                  required 
-                  name="last_name" 
-                  type="text" 
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
-                />
-              </div>
-            </div>
-            
             <div class="group">
-              <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Password</label>
-              <div class="relative">
-                <input 
-                  required 
-                  name="password" 
-                  type="password" 
-                  minlength="8" 
-                  id="password" 
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
-                />
-                <button 
-                  type="button" 
-                  id="togglePassword" 
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                  aria-label="Toggle password visibility"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-              <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
-            </div>
-            
-            <div class="group">
-              <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Confirm Password</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Last Name</label>
               <input 
                 required 
-                name="confirmPassword" 
-                type="password" 
-                id="confirmPassword" 
+                name="last_name" 
+                type="text" 
                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
               />
             </div>
           </div>
           
-          <div id="error-message" class="hidden px-4 py-3 bg-red-100 text-red-700 text-sm rounded-lg" role="alert"></div>
+          <div class="group">
+            <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Password</label>
+            <div class="relative">
+              <input 
+                required 
+                name="password" 
+                type="password" 
+                minlength="8" 
+                id="password" 
+                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+              />
+              <button 
+                type="button" 
+                id="togglePassword" 
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                aria-label="Toggle password visibility"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                  <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+          </div>
           
-          <button 
-            type="submit" 
-            class="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-violet-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-md hover:shadow-lg active:scale-98"
-          >
-            Create Account
-          </button>
-          
-          <p class="text-center text-sm text-gray-600 mt-4">
-            Already have an account? 
-            <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Sign in</a>
-          </p>
+          <div class="group">
+            <label class="block text-sm font-medium text-gray-700 mb-1 group-focus-within:text-blue-600 transition-colors">Confirm Password</label>
+            <input 
+              required 
+              name="confirmPassword" 
+              type="password" 
+              id="confirmPassword" 
+              class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+            />
+          </div>
         </div>
-      </form>
-    </div>
+        
+        <div id="error-message" class="hidden px-4 py-3 bg-red-100 text-red-700 text-sm rounded-lg" role="alert"></div>
+        
+        <button 
+          type="submit" 
+          class="w-full py-3 px-4 bg-gradient-to-r from-blue-500 to-violet-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-md hover:shadow-lg active:scale-95"
+        >
+          Create Account
+        </button>
+        
+        <p class="text-center text-sm text-gray-600 mt-4">
+          Already have an account? 
+          <a href="/login" class="text-blue-600 hover:text-blue-800 font-medium">Sign in</a>
+        </p>
+      </div>
+    </form>
   </div>
+</div>
+
+<script>
+  import { showNotification } from '../components/utils/notificationService';
   
-  <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
+    const form = document.querySelector('form') as HTMLFormElement;
     const togglePasswordBtn = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const confirmPasswordInput = document.getElementById('confirmPassword') as HTMLInputElement;
     const errorMessage = document.getElementById('error-message');
 
     if (togglePasswordBtn && passwordInput) {
       togglePasswordBtn.addEventListener('click', function () {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
+        
+        if (type === 'password') {
+          togglePasswordBtn.setAttribute('aria-label', 'Show password');
+        } else {
+          togglePasswordBtn.setAttribute('aria-label', 'Hide password');
+        }
       });
     }
 
@@ -121,17 +132,20 @@
 
       const formData = new FormData(form);
       const data = {
-        username: formData.get('username'),
-        first_name: formData.get('first_name'),
-        last_name: formData.get('last_name'),
-        password: formData.get('password'),
+        username: formData.get('username') as string,
+        first_name: formData.get('first_name') as string,
+        last_name: formData.get('last_name') as string,
+        password: formData.get('password') as string,
       };
 
       // Client-side validation
-      const password = formData.get('password');
-      const confirmPassword = formData.get('confirmPassword');
+      const password = formData.get('password') as string;
+      const confirmPassword = formData.get('confirmPassword') as string;
 
-      errorMessage.classList.add('hidden');
+      if (errorMessage) {
+        errorMessage.classList.add('hidden');
+      }
+      
       passwordInput.classList.remove('border-red-500', 'ring-red-200');
       confirmPasswordInput.classList.remove('border-red-500', 'ring-red-200');
 
@@ -157,22 +171,27 @@
         });
 
         if (result.ok) {
-          alert('Registration successful!');
-          window.location.href = '/login';
+          showNotification({
+            title: 'Registration Successful!',
+            message: 'Your account has been created. You will be redirected to login in 5 seconds.',
+            buttonText: 'Login Now',
+            redirectUrl: '/login',
+            autoRedirectDelay: 5000
+          });
         } else {
           const error = await result.json();
           showError(error.message || 'Registration failed.');
         }
       } catch (err) {
-        showError(err.message || 'Registration failed.');
+        showError((err as Error).message || 'Registration failed.');
       }
     });
 
-    function showError(msg) {
-      errorMessage.textContent = msg;
-      errorMessage.classList.remove('hidden');
+    function showError(msg: string) {
+      if (errorMessage) {
+        errorMessage.textContent = msg;
+        errorMessage.classList.remove('hidden');
+      }
     }
   });
-  </script>
-  
-  
+</script>
