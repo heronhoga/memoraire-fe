@@ -70,7 +70,7 @@ const totalPages = 3;
         
         <div class="flex items-center space-x-4">
             <a href="/profile">
-                <button id="profile-btn" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-slate-600 px-4 py-2 rounded-lg flex items-center transition-all">
+                <button id="profile-btn" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg flex items-center transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
@@ -127,15 +127,108 @@ const totalPages = 3;
     </div>
   </div>
 
+  <!-- Logout Confirmation Modal -->
+  <div id="logout-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+      <div class="bg-gradient-to-r from-blue-600 to-violet-700 px-6 py-4">
+        <h3 class="text-xl font-bold text-white">Confirm Logout</h3>
+      </div>
+      <div class="p-6 space-y-4">
+        <p class="text-gray-700">Are you sure you want to logout from Memoraire? Your current session will end.</p>
+        <div class="flex items-center justify-end space-x-3 pt-4">
+          <button id="cancel-logout" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+            Cancel
+          </button>
+          <button id="confirm-logout" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-violet-700 rounded-lg text-white hover:opacity-90 transition-colors flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H3zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+    <div class="text-center">
+      <div class="inline-block w-16 h-16 border-4 border-t-blue-500 border-r-blue-500 border-b-violet-600 border-l-violet-600 rounded-full animate-spin"></div>
+      <p class="mt-4 text-white font-medium">Logging out...</p>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const logoutBtn = document.getElementById('logout-btn');
       const profileBtn = document.getElementById('profile-btn');
       const prevPageBtn = document.getElementById('prev-page');
       const nextPageBtn = document.getElementById('next-page');
+      const logoutModal = document.getElementById('logout-modal');
+      const cancelLogoutBtn = document.getElementById('cancel-logout');
+      const confirmLogoutBtn = document.getElementById('confirm-logout');
+      const loadingOverlay = document.getElementById('loading-overlay');
       
       logoutBtn?.addEventListener('click', function() {
-        console.log('Logout clicked');
+        logoutModal?.classList.remove('hidden');
+        const modalContent = logoutModal?.querySelector('div');
+        if (modalContent) {
+          modalContent.classList.add('scale-100');
+          modalContent.classList.remove('scale-95');
+        }
+      });
+      
+      cancelLogoutBtn?.addEventListener('click', function() {
+        closeLogoutModal();
+      });
+      
+      logoutModal?.addEventListener('click', function(e) {
+        if (e.target === logoutModal) {
+          closeLogoutModal();
+        }
+      });
+      
+      confirmLogoutBtn?.addEventListener('click', async function() {
+        closeLogoutModal();
+        showLoadingOverlay();
+        
+        try {
+          let token = ""
+          if (typeof window !== 'undefined') {
+            if (window.sessionStorage) {
+                token = window.sessionStorage.getItem("memoraire_token") || ""
+              }
+          }
+          const response = await fetch('/api/logout', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'memoraire_token': token
+            },
+          });
+          
+          if (response.ok) {
+            if (typeof window !== 'undefined') {
+
+              if (window.sessionStorage) {
+                window.sessionStorage.clear();
+              }
+
+              if (window.localStorage) {
+                window.localStorage.clear();
+              }
+            }
+            
+            window.location.href = '/';
+          } else {
+            showToast('Logout failed. Please try again.');
+            hideLoadingOverlay();
+          }
+        } catch (error) {
+          console.error('Logout error:', error);
+          showToast('Network error. Please try again.');
+          hideLoadingOverlay();
+        }
       });
       
       profileBtn?.addEventListener('click', function() {
@@ -149,5 +242,38 @@ const totalPages = 3;
       nextPageBtn?.addEventListener('click', function() {
         console.log('Next page clicked');
       });
+      
+      function closeLogoutModal() {
+        if (logoutModal) {
+          logoutModal.classList.add('hidden');
+        }
+      }
+      
+      function showLoadingOverlay() {
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove('hidden');
+        }
+      }
+      
+      function hideLoadingOverlay() {
+        if (loadingOverlay) {
+          loadingOverlay.classList.add('hidden');
+        }
+      }
+      
+      function showToast(message: string) {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transform transition-all';
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      }
     });
   </script>

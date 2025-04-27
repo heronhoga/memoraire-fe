@@ -24,6 +24,10 @@ interface LoginResponse {
   token: string;
 }
 
+interface LogoutResponse {
+  message: string;
+}
+
 export async function registerUser(data: RegisterData): Promise<RegisterResponse> {
   try {
     const response = await axios.post(`${BASE_URL}/register`, data, {
@@ -46,6 +50,24 @@ Promise<LoginResponse> {
       headers: {
         hgtoken: APP_KEY,
       },
+    })
+
+    return response.data
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ message: string }>;
+    console.log(axiosError);
+    throw axiosError.response?.data || { message: "Something went wrong" };
+  }
+}
+
+export async function logoutUser(auth: string):
+Promise<LogoutResponse> {
+  try {
+    const response = await axios.get(`${BASE_URL}/logout`, {
+      headers: {
+        hgtoken: APP_KEY,
+        Authorization:`Bearer ${auth}`
+      }
     })
 
     return response.data
