@@ -13,3 +13,5 @@ export const POST: APIRoute = async ({request}) => {
           });
     }
 }
+
+export const prerender = false
