@@ -8,6 +8,7 @@ export const POST: APIRoute = async ({request}) => {
         const result = await createMemo(data, token)
         return new Response(JSON.stringify(result), { status: 200 });
     } catch (error:any) {
+        console.log("inilah errornya dari proxy backend", error)
         return new Response(JSON.stringify({ message: error.message }), {
             status: 400,
           });

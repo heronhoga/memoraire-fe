@@ -499,13 +499,17 @@ const totalPages = 3;
             body: JSON.stringify(data),
           });
 
+          const result = await response.json();
+          console.log(result);
+
           if (response.ok) {
             window.location.reload();
           } else {
-            showToast("Failed to create memo. Please try again.");
+            const responseMessage =
+              result?.message || "Failed to create memo. Please try again.";
+            showToast(responseMessage);
           }
         } catch (error) {
-          console.error("Create memo error:", error);
           showToast("Network error. Please try again.");
         } finally {
           hideLoadingOverlay();
