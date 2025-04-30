@@ -12,6 +12,10 @@ interface CreateMemoResponse {
   message: string;
 }
 
+interface UpdateMemoResponse {
+  message: string;
+}
+
 interface GetMemoResponse {
   message: string;
   data: unknown;
@@ -44,6 +48,27 @@ export async function getMemo(
 ): Promise<GetMemoResponse> {
   try {
     const response = await axios.get(`${BASE_URL}/memo?page=${page}`, {
+      headers: {
+        hgtoken: APP_KEY,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ message: string }>;
+    console.log(axiosError);
+    throw axiosError.response?.data || { message: "Something went wrong" };
+  }
+}
+
+//update memo
+export async function updateMemo(
+  data: MemoData,
+  token: string
+): Promise<UpdateMemoResponse> {
+  try {
+    const response = await axios.put(`${BASE_URL}/memo`, data, {
       headers: {
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
