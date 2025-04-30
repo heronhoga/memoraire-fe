@@ -81,7 +81,6 @@
       id="memories-container"
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
     >
-      <!-- Memory cards will be dynamically added here -->
     </div>
     <script type="module">
       (async () => {
@@ -91,6 +90,22 @@
           localStorage.clear();
 
           window.location.href = "/";
+        }
+
+        function showToast(message) {
+          const toast = document.createElement("div");
+          toast.className =
+            "fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transform transition-all";
+          toast.textContent = message;
+
+          document.body.appendChild(toast);
+
+          setTimeout(() => {
+            toast.classList.add("opacity-0");
+            setTimeout(() => {
+              document.body.removeChild(toast);
+            }, 300);
+          }, 3000);
         }
 
         let currentPage = 1;
@@ -212,13 +227,14 @@
                   const charCountDisplay =
                     editMemoModal.querySelector("#edit-char-count");
 
-                  if (editMemoId) editMemoId.value = memory.id;
+                  if (editMemoId) editMemoId.value = memory.ID;
 
                   if (editMemoDate) {
                     // Handle date format
                     const formattedDate = toDateInputFormat(memory.date);
                     editMemoDate.value = formattedDate;
                   }
+                  console.log(memory.ID, formattedDate, memory.note);
 
                   if (editMemoNote) {
                     editMemoNote.value = memory.note;
@@ -245,6 +261,58 @@
                 cancelEditMemoBtn.addEventListener("click", function () {
                   editMemoModal?.classList.add("hidden");
                 });
+              });
+
+              //submit edit form
+              const editMemoForm = document.getElementById("edit-memo-form");
+              editMemoForm?.addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const editMemoModal =
+                  document.getElementById("edit-memo-modal");
+                editMemoModal?.classList.add("hidden");
+
+                document
+                  .getElementById("loading-overlay")
+                  ?.classList.remove("hidden");
+
+                const formData = new FormData(editMemoForm);
+                const data = {
+                  memo_id: formData.get("edit-memo-id"),
+                  date: formData.get("edit-memo-date"),
+                  note: formData.get("edit-memo-note"),
+                };
+
+                try {
+                  console.log(token);
+                  console.log(data);
+
+                  const response = await fetch("/api/memo", {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                      memoraire_token: token,
+                    },
+                    body: JSON.stringify(data),
+                  });
+
+                  const result = await response.json();
+                  console.log(result);
+
+                  if (response.ok) {
+                    window.location.reload();
+                  } else {
+                    const responseMessage =
+                      result?.message ||
+                      "Failed to edit memo. Please try again.";
+                    showToast(responseMessage);
+                  }
+                } catch (error) {
+                  showToast("Network error. Please try again.");
+                } finally {
+                  document
+                    .getElementById("loading-overlay")
+                    ?.classList.add("hidden");
+                }
               });
 
               document.getElementById("prev-page").disabled = page <= 1;
@@ -690,11 +758,6 @@
         }
       });
       //end create memo
-
-      //update memo
-      const editMemoBtn = document.getElementById("edit-memo-btn");
-      const editMemoModal = document.getElementById("edit-memo-modal");
-      //end update memo
 
       profileBtn?.addEventListener("click", function () {
         console.log("Profile clicked");
