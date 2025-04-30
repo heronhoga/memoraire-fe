@@ -8,6 +8,14 @@ interface MemoData {
   note: string;
 }
 
+interface DeleteMemoData {
+  memo_id: string;
+}
+
+interface DeleteMemoResponse {
+  message: string;
+}
+
 interface CreateMemoResponse {
   message: string;
 }
@@ -73,6 +81,28 @@ export async function updateMemo(
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
       },
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ message: string }>;
+    console.log(axiosError);
+    throw axiosError.response?.data || { message: "Something went wrong" };
+  }
+}
+
+//delete memo
+export async function deleteMemo(
+  data: DeleteMemoData,
+  token: string
+): Promise<DeleteMemoResponse> {
+  try {
+    const response = await axios.delete(`${BASE_URL}/memo`, {
+      headers: {
+        hgtoken: APP_KEY,
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
     });
 
     return response.data;
