@@ -35,7 +35,7 @@ export async function createMemo(
   token: string
 ): Promise<CreateMemoResponse> {
   try {
-    const response = await axios.post(`${BASE_URL}/memo/create`, data, {
+    const response = await axios.post(`${BASE_URL}/api/memo/create`, data, {
       headers: {
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ export async function getMemo(
   page: number
 ): Promise<GetMemoResponse> {
   try {
-    const response = await axios.get(`${BASE_URL}/memo?page=${page}`, {
+    const response = await axios.get(`${BASE_URL}/api/memo?page=${page}`, {
       headers: {
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ export async function updateMemo(
   token: string
 ): Promise<UpdateMemoResponse> {
   try {
-    const response = await axios.put(`${BASE_URL}/memo`, data, {
+    const response = await axios.put(`${BASE_URL}/api/memo`, data, {
       headers: {
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
@@ -97,7 +97,7 @@ export async function deleteMemo(
   token: string
 ): Promise<DeleteMemoResponse> {
   try {
-    const response = await axios.delete(`${BASE_URL}/memo`, {
+    const response = await axios.delete(`${BASE_URL}/api/memo`, {
       headers: {
         hgtoken: APP_KEY,
         Authorization: `Bearer ${token}`,
