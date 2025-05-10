@@ -28,8 +28,11 @@ interface LogoutResponse {
   message: string;
 }
 
-export async function registerUser(data: RegisterData): Promise<RegisterResponse> {
+export async function registerUser(
+  data: RegisterData
+): Promise<RegisterResponse> {
   try {
+    console.log("app token: ", APP_KEY);
     const response = await axios.post(`${BASE_URL}/api/register`, data, {
       headers: {
         hgtoken: APP_KEY,
@@ -43,16 +46,15 @@ export async function registerUser(data: RegisterData): Promise<RegisterResponse
   }
 }
 
-export async function loginUser(data: LoginData):
-Promise<LoginResponse> {
+export async function loginUser(data: LoginData): Promise<LoginResponse> {
   try {
     const response = await axios.post(`${BASE_URL}/api/login`, data, {
       headers: {
         hgtoken: APP_KEY,
       },
-    })
+    });
 
-    return response.data
+    return response.data;
   } catch (error: unknown) {
     const axiosError = error as AxiosError<{ message: string }>;
     console.log(axiosError);
@@ -60,17 +62,16 @@ Promise<LoginResponse> {
   }
 }
 
-export async function logoutUser(auth: string):
-Promise<LogoutResponse> {
+export async function logoutUser(auth: string): Promise<LogoutResponse> {
   try {
     const response = await axios.get(`${BASE_URL}/api/logout`, {
       headers: {
         hgtoken: APP_KEY,
-        Authorization:`Bearer ${auth}`
-      }
-    })
+        Authorization: `Bearer ${auth}`,
+      },
+    });
 
-    return response.data
+    return response.data;
   } catch (error: unknown) {
     const axiosError = error as AxiosError<{ message: string }>;
     console.log(axiosError);
