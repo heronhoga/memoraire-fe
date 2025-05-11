@@ -1,23 +1,21 @@
-FROM node:18 AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-ARG PUBLIC_APP_KEY
-ARG PUBLIC_BACKEND_PORT
-
-ENV PUBLIC_APP_KEY=$PUBLIC_APP_KEY
-ENV PUBLIC_BACKEND_PORT=$PUBLIC_BACKEND_PORT
-
 COPY package*.json ./
+COPY .env ./
 RUN npm install
 
-COPY . .
+COPY . . 
 
 RUN npm run build
 
-FROM nginx:alpine
+FROM node:20-alpine
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# custom nginx config
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app ./
+
+EXPOSE 3000
+
+CMD ["node", "./dist/server/entry.mjs"]
