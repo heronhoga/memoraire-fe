@@ -4,8 +4,9 @@ import { createMemo, deleteMemo, getMemo, updateMemo } from "../../apis/memo";
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json();
   const token = request.headers.get("memoraire_token") || "";
+  const appToken = import.meta.env.APP_KEY;
   try {
-    const result = await createMemo(data, token);
+    const result = await createMemo(data, token, appToken);
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (error: any) {
     return new Response(JSON.stringify({ message: error.message }), {
@@ -20,9 +21,10 @@ export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const pageParam = url.searchParams.get("page");
   const page = parseInt(pageParam || "1", 10);
+  const appToken = import.meta.env.APP_KEY;
 
   try {
-    const result = await getMemo(token, page);
+    const result = await getMemo(token, page, appToken);
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (error: any) {
     return new Response(JSON.stringify({ message: error.message }), {
@@ -34,9 +36,10 @@ export const GET: APIRoute = async ({ request }) => {
 export const PUT: APIRoute = async ({ request }) => {
   const token = request.headers.get("memoraire_token") || "";
   const data = await request.json();
+  const appToken = import.meta.env.APP_KEY;
 
   try {
-    const result = await updateMemo(data, token);
+    const result = await updateMemo(data, token, appToken);
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (error: any) {
     return new Response(JSON.stringify({ message: error.message }), {
@@ -48,9 +51,10 @@ export const PUT: APIRoute = async ({ request }) => {
 export const DELETE: APIRoute = async ({ request }) => {
   const token = request.headers.get("memoraire_token") || "";
   const data = await request.json();
+  const appToken = import.meta.env.APP_KEY;
 
   try {
-    const result = await deleteMemo(data, token);
+    const result = await deleteMemo(data, token, appToken);
     return new Response(JSON.stringify(result), { status: 200 });
   } catch (error: any) {
     return new Response(JSON.stringify({ message: error.message }), {

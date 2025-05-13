@@ -4,9 +4,9 @@ import { logoutUser } from "../../apis/auth";
 export const GET: APIRoute = async ({ request }) => {
   const token = request.headers.get("memoraire_token") || "";
 
-  const appToken = request.headers.get("hgtoken");
+  const appToken = import.meta.env.APP_KEY;
 
-  if (!appToken || appToken !== import.meta.env.PRIVATE_APP_KEY) {
+  if (!appToken) {
     return new Response(
       JSON.stringify({ message: "Invalid or missing token" }),
       {

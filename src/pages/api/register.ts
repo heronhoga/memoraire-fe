@@ -4,9 +4,9 @@ import { registerUser } from "../../apis/auth";
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json();
 
-  const token = request.headers.get("hgtoken");
+  const token = import.meta.env.APP_KEY;
 
-  if (!token || token !== import.meta.env.PRIVATE_APP_KEY) {
+  if (!token) {
     return new Response(JSON.stringify({ message: "Invalid or missing token" }), {
       status: 403,
     });

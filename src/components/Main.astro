@@ -727,13 +727,11 @@
         showLoadingOverlay();
 
         try {
-          const APP_KEY = import.meta.env.PUBLIC_APP_KEY;
           const response = await fetch("/api/logout", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
               memoraire_token: token,
-              hgtoken: APP_KEY,
             },
           });
 
