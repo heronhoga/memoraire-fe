@@ -207,12 +207,12 @@
 
       try {
         const APP_KEY = import.meta.env.PUBLIC_APP_KEY;
-        console.log(APP_KEY);
 
         const result = await fetch("/api/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "hgtoken": APP_KEY,
           },
           body: JSON.stringify(data),
         });

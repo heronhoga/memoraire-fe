@@ -30,12 +30,12 @@ interface LogoutResponse {
 }
 
 export async function registerUser(
-  data: RegisterData
+  data: RegisterData, token: string
 ): Promise<RegisterResponse> {
   try {
     const response = await axios.post(`${BASE_URL}/api/register`, data, {
       headers: {
-        hgtoken: APP_KEY,
+        hgtoken: token,
       },
     });
     return response.data;
@@ -46,11 +46,11 @@ export async function registerUser(
   }
 }
 
-export async function loginUser(data: LoginData): Promise<LoginResponse> {
+export async function loginUser(data: LoginData, token: string): Promise<LoginResponse> {
   try {
     const response = await axios.post(`${BASE_URL}/api/login`, data, {
       headers: {
-        hgtoken: APP_KEY,
+        hgtoken: token,
       },
     });
 
@@ -62,11 +62,11 @@ export async function loginUser(data: LoginData): Promise<LoginResponse> {
   }
 }
 
-export async function logoutUser(auth: string): Promise<LogoutResponse> {
+export async function logoutUser(auth: string, token: string): Promise<LogoutResponse> {
   try {
     const response = await axios.get(`${BASE_URL}/api/logout`, {
       headers: {
-        hgtoken: APP_KEY,
+        hgtoken: token,
         Authorization: `Bearer ${auth}`,
       },
     });
