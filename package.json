@@ -14,5 +14,8 @@
     "astro": "^5.7.4",
     "axios": "^1.8.4",
     "tailwindcss": "^4.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17"
   }
 }

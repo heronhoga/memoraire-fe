@@ -4,7 +4,7 @@ import { logoutUser } from "../../apis/auth";
 export const GET: APIRoute = async ({ request }) => {
   const token = request.headers.get("memoraire_token") || "";
 
-  const appToken = import.meta.env.APP_KEY;
+  const appToken = import.meta.env.PUBLIC_APP_KEY ?? process.env.PUBLIC_APP_KEY;
 
   if (!appToken) {
     return new Response(
