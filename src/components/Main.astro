@@ -208,7 +208,6 @@
                     memo_id: selectedMemoId,
                   };
 
-                  console.log("data to delete", data);
                   try {
                     const response = await fetch("/api/memo", {
                       method: "DELETE",
@@ -220,7 +219,6 @@
                     });
 
                     const result = await response.json();
-                    console.log(result);
 
                     if (response.ok) {
                       window.location.reload();
@@ -271,7 +269,6 @@
                     const formattedDate = toDateInputFormat(memory.date);
                     editMemoDate.value = formattedDate;
                   }
-                  console.log(memory.ID, formattedDate, memory.note);
 
                   if (editMemoNote) {
                     editMemoNote.value = memory.note;
@@ -330,7 +327,6 @@
                   });
 
                   const result = await response.json();
-                  console.log(result);
 
                   if (response.ok) {
                     window.location.reload();
@@ -822,7 +818,6 @@
           });
 
           const result = await response.json();
-          console.log(result);
 
           if (response.ok) {
             window.location.reload();
@@ -838,10 +833,6 @@
         }
       });
       //end create memo
-
-      profileBtn?.addEventListener("click", function () {
-        console.log("Profile clicked");
-      });
 
       function showLoadingOverlay() {
         if (loadingOverlay) {
