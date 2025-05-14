@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { PUBLIC_APP_KEY } from "astro:env/server";
 
 const BASE_URL = import.meta.env.PUBLIC_BACKEND_PORT;
 const APP_KEY = import.meta.env.PUBLIC_APP_KEY;
@@ -38,7 +39,7 @@ export async function createMemo(
   try {
     const response = await axios.post(`${BASE_URL}/api/memo/create`, data, {
       headers: {
-        hgtoken: appToken,
+        hgtoken: PUBLIC_APP_KEY,
         Authorization: `Bearer ${token}`,
       },
     });
@@ -59,7 +60,7 @@ export async function getMemo(
   try {
     const response = await axios.get(`${BASE_URL}/api/memo?page=${page}`, {
       headers: {
-        hgtoken: appToken,
+        hgtoken: PUBLIC_APP_KEY,
         Authorization: `Bearer ${token}`,
       },
     });
@@ -81,7 +82,7 @@ export async function updateMemo(
   try {
     const response = await axios.put(`${BASE_URL}/api/memo`, data, {
       headers: {
-        hgtoken: appToken,
+        hgtoken: PUBLIC_APP_KEY,
         Authorization: `Bearer ${token}`,
       },
     });
@@ -103,7 +104,7 @@ export async function deleteMemo(
   try {
     const response = await axios.delete(`${BASE_URL}/api/memo`, {
       headers: {
-        hgtoken: appToken,
+        hgtoken: PUBLIC_APP_KEY,
         Authorization: `Bearer ${token}`,
       },
       data: data,

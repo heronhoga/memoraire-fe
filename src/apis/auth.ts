@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { PUBLIC_APP_KEY } from "astro:env/server";
 
 const BASE_URL = import.meta.env.PUBLIC_BACKEND_PORT;
 const APP_KEY = import.meta.env.PUBLIC_APP_KEY;
@@ -35,7 +36,7 @@ export async function registerUser(
   try {
     const response = await axios.post(`${BASE_URL}/api/register`, data, {
       headers: {
-        hgtoken: token,
+        hgtoken: PUBLIC_APP_KEY,
       },
     });
     return response.data;
@@ -50,7 +51,7 @@ export async function loginUser(data: LoginData, token: string): Promise<LoginRe
   try {
     const response = await axios.post(`${BASE_URL}/api/login`, data, {
       headers: {
-        hgtoken: token,
+        hgtoken: PUBLIC_APP_KEY,
       },
     });
 
@@ -66,7 +67,7 @@ export async function logoutUser(auth: string, token: string): Promise<LogoutRes
   try {
     const response = await axios.get(`${BASE_URL}/api/logout`, {
       headers: {
-        hgtoken: token,
+        hgtoken: PUBLIC_APP_KEY,
         Authorization: `Bearer ${auth}`,
       },
     });
