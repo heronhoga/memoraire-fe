@@ -1,10 +1,11 @@
 import type { APIRoute } from "astro";
 import { loginUser } from "../../apis/auth";
+import { PUBLIC_APP_KEY } from "astro:env/server";
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.json();
 
-  const token = import.meta.env.PUBLIC_APP_KEY ?? process.env.PUBLIC_APP_KEY;
+  const token = PUBLIC_APP_KEY
 
   if (!token) {
     return new Response(
